@@ -41,8 +41,7 @@
                                         </td>
                                         <td>
                                             <form action="/tests/start/{{$test->id}}" method="GET">
-                                                @csrf
-                                                    <button type="submit" onclick="salvarHora()" class="btn btn-primary btn-sm mt-5">Começar</button>
+                                                    <button type="submit" class="btn btn-primary btn-sm mt-4">Começar</button>
                                             </form>
                                         </td>
                                     </tr>

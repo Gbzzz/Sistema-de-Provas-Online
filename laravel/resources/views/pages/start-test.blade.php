@@ -1,11 +1,10 @@
-@extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
+@extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => $test->dsc_test])
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-1">
+            <div class="col-md-1 mt-3">
                 <div class="card">
                     <div class="text-center align-middle">
                         <input type="time" id="inputTime" value="{{ $test->time_test }}" hidden>
@@ -153,6 +152,7 @@
 @endsection
 
 <script>
+
     window.onload = function() {
         criarContador();
     };
@@ -167,8 +167,18 @@
         var totalSegundos = horas * 3600 + minutos * 60 + segundos;
         var tempoLimite = {{ intval($test->time_test) * 60 }}; // Converter minutos para segundos
 
+        // Verificar se o valor está armazenado no armazenamento local
+        var tempoRestanteArmazenado = localStorage.getItem("tempoRestante");
+        if (tempoRestanteArmazenado !== null) {
+            var tempoRestanteArmazenadoSegundos = parseInt(tempoRestanteArmazenado);
+            if (!isNaN(tempoRestanteArmazenadoSegundos) && tempoRestanteArmazenadoSegundos > 0) {
+                // Recuperar o valor do armazenamento local
+                totalSegundos = tempoRestanteArmazenadoSegundos;
+            }
+        }
+
         var contador = document.getElementById("contador");
-        contador.innerHTML = formatarTempo(tempoLimite);
+        contador.innerHTML = formatarTempo(totalSegundos);
 
         var interval = setInterval(function() {
             totalSegundos--;
@@ -179,6 +189,9 @@
             } else {
                 contador.innerHTML = formatarTempo(totalSegundos);
             }
+
+            // Armazenar o valor atualizado no armazenamento local
+            localStorage.setItem("tempoRestante", totalSegundos.toString());
         }, 1000);
     }
 
@@ -195,4 +208,6 @@
             (segundos < 10 ? "0" + segundos : segundos)
         );
     }
+
+
 </script>

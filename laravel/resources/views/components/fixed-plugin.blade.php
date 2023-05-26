@@ -1,4 +1,4 @@
-<div class="fixed-plugin">
+{{-- <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
         <i class="fa fa-cog py-2"> </i>
     </a>
@@ -12,9 +12,11 @@
                 <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
                     <i class="fa fa-close"></i>
                 </button>
-            </div>
+            </div> --}}
+
             <!-- End Toggle Button -->
-        </div>
+
+        {{-- </div>
         <hr class="horizontal dark my-1">
         <div class="card-body pt-sm-3 pt-0 overflow-auto">
             <!-- Sidebar Backgrounds -->
@@ -34,9 +36,11 @@
                     <span class="badge filter bg-gradient-danger" data-color="danger"
                         onclick="sidebarColor(this)"></span>
                 </div>
-            </a>
+            </a> --}}
+            
             <!-- Sidenav Type -->
-            <div class="mt-3">
+
+            {{-- <div class="mt-3">
                 <h6 class="mb-0">Sidenav Type</h6>
                 <p class="text-sm">Choose between 2 different sidenav types.</p>
             </div>
@@ -46,9 +50,11 @@
                 <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default"
                     onclick="sidebarType(this)">Dark</button>
             </div>
-            <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+            <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p> --}}
+
             <!-- Navbar Fixed -->
-            <div class="d-flex my-3">
+
+            {{-- <div class="d-flex my-3">
                 <h6 class="mb-0">Navbar Fixed</h6>
                 <div class="form-check form-switch ps-0 ms-auto my-auto">
                     <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
@@ -72,9 +78,11 @@
                     aria-label="Star creativetimofficial/argon-dashboard on GitHub">Star</a>
                 <h6 class="mt-3">Thank you for sharing!</h6>
                 <a href="https://twitter.com/intent/tweet?text=Check%20Argon%20Dashboard%20made%20by%20%40CreativeTim%20and%20%40UPDIVISION%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fargon-dashboard-laravel"
-                    class="btn btn-dark mb-0 me-2" target="_blank">
+                    class="btn btn-dark mb-0 me-2" target="_blank"> --}}
+
                     {{-- &amp;url2=https%3A%2F%2Fwww.updivision.com --}}
-                    <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+
+                    {{-- <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
                 </a>
                 <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/argon-dashboard-laravel"
                     class="btn btn-dark mb-0 me-2" target="_blank">
@@ -83,4 +91,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
