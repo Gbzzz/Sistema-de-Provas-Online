@@ -19,9 +19,15 @@ class ChangePassword extends Controller
         $this->user = User::find($id);
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        return view('auth.change-password');
+        if ($request->session()->has('email')) {
+            $email = $request->session()->get('email');
+            $request->session()->forget('email');
+            
+            return view('auth.change-password', compact('email'));
+        }
+
     }
 
     public function update(Request $request)
