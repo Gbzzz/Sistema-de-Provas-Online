@@ -35,7 +35,7 @@ services:
       #definição da porta de entrada do traefik proxy
       #- traefik.http.routers.laravel-rtr.entrypoints=websecure
       #definição da rota via traefik proxy
-      - traefik.http.routers.laravel-rtr.rule=Host(`laravel.${DOMAIN?Variable not set}`)
+      - traefik.http.routers.laravel-rtr.rule=Host(`${DOMAIN?Variable not set}`)
       - traefik.http.routers.laravel-rtr.tls=true
       - traefik.http.routers.laravel-rtr.tls.certresolver=letsencrypt
       #definição do serviço via traefik proxy
