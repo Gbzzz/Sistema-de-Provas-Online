@@ -167,16 +167,15 @@
         var totalSegundos = horas * 3600 + minutos * 60 + segundos;
         var tempoLimite = {{ intval($test->time_test) * 60 }}; // Converter minutos para segundos
 
-        // Verificar se o valor está armazenado no armazenamento local
         var tempoRestanteArmazenado = localStorage.getItem("tempoRestante");
         if (tempoRestanteArmazenado !== null) {
             var tempoRestanteArmazenadoSegundos = parseInt(tempoRestanteArmazenado);
             if (!isNaN(tempoRestanteArmazenadoSegundos) && tempoRestanteArmazenadoSegundos > 0) {
-                // Recuperar o valor do armazenamento local
                 totalSegundos = tempoRestanteArmazenadoSegundos;
             }
         }
 
+        //atualizando o contador
         var contador = document.getElementById("contador");
         contador.innerHTML = formatarTempo(totalSegundos);
 
@@ -190,7 +189,7 @@
                 contador.innerHTML = formatarTempo(totalSegundos);
             }
 
-            // Armazenar o valor atualizado no armazenamento local
+            // Armazena o valor atualizado no armazenamento local
             localStorage.setItem("tempoRestante", totalSegundos.toString());
         }, 1000);
     }

@@ -51,6 +51,6 @@ class RegisterController extends Controller
         }
 
 
-        return redirect('/dashboard');
+        return redirect('/users')->with('success', 'Usuário cadastrado com Sucesso');
     }
 }
