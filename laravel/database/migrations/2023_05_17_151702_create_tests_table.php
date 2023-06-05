@@ -20,6 +20,7 @@ class CreateTestsTable extends Migration
             $table->date('date_end');
             $table->time('time_test');
             $table->string('dsc_test');
+            $table->boolean('prova_finalizada')->default(0);
         });
     }
 

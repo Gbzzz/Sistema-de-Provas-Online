@@ -7,7 +7,6 @@
             <div class="col-md-1 mt-3">
                 <div class="card">
                     <div class="text-center align-middle">
-                        <input type="time" id="inputTime" value="{{ $test->time_test }}" hidden>
                         <div id="contador"></div>
                     </div>
                 </div>
@@ -21,9 +20,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-5">
                         <div class="card mt-3">
-                                <form role="form" method="POST" action="{{ route('update_questionOpen', $question->id) }}">
-                                    @method('PUT')
-                                    @csrf
+                                <form role="form">
                                     <div class="card-header pb-0">
                                         <div class="d-flex align-items-center">
                                             <p class="mb-0">{{ $question->enunciado }}</p>
@@ -47,9 +44,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-5">
                         <div class="card mt-3">
-                                <form role="form" method="POST" action="{{ route('update_questionMark', $question->id) }}">
-                                    @method('PUT')
-                                    @csrf
+                                <form role="form">
                                     <div class="card-header pb-0">
                                         <div class="d-flex align-items-center">
                                             <p class="mb-0">{{ $question->enunciado }}</p>
@@ -88,8 +83,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-5">
                         <div class="card mt-3">
-                                <form role="form" method="POST" action="{{ route('update_questionMark', $question->id) }}">
-                                    @method('PUT')
+                                <form role="form">
                                     @csrf
                                     <div class="card-header pb-0">
                                         <div class="d-flex align-items-center">
@@ -144,69 +138,12 @@
             </div>
         @endif
     @endforeach
-    <div class="align-items-center mt-5">
-        <div class="me-12 text-end">
-            <button type="submit" class="btn btn-primary btn-sm">Enviar Resposta</button>
+    <form action="">
+        <div class="align-items-center mt-5">
+            <div class="me-12 text-end">
+                <button type="submit" class="btn btn-primary btn-sm">Enviar Resposta</button>
+            </div>
         </div>
-    </div>
+    </form>
 @endsection
 
-<script>
-
-    window.onload = function() {
-        criarContador();
-    };
-
-    function criarContador() {
-        var inputTime = document.getElementById("inputTime");
-        var tempo = inputTime.value.split(":");
-        var horas = parseInt(tempo[0]);
-        var minutos = parseInt(tempo[1]);
-        var segundos = 0;
-
-        var totalSegundos = horas * 3600 + minutos * 60 + segundos;
-        var tempoLimite = {{ intval($test->time_test) * 60 }}; // Converter minutos para segundos
-
-        var tempoRestanteArmazenado = localStorage.getItem("tempoRestante");
-        if (tempoRestanteArmazenado !== null) {
-            var tempoRestanteArmazenadoSegundos = parseInt(tempoRestanteArmazenado);
-            if (!isNaN(tempoRestanteArmazenadoSegundos) && tempoRestanteArmazenadoSegundos > 0) {
-                totalSegundos = tempoRestanteArmazenadoSegundos;
-            }
-        }
-
-        //atualizando o contador
-        var contador = document.getElementById("contador");
-        contador.innerHTML = formatarTempo(totalSegundos);
-
-        var interval = setInterval(function() {
-            totalSegundos--;
-
-            if (totalSegundos < 0) {
-                clearInterval(interval);
-                contador.innerHTML = "Tempo finalizado!";
-            } else {
-                contador.innerHTML = formatarTempo(totalSegundos);
-            }
-
-            // Armazena o valor atualizado no armazenamento local
-            localStorage.setItem("tempoRestante", totalSegundos.toString());
-        }, 1000);
-    }
-
-    function formatarTempo(totalSegundos) {
-        var horas = Math.floor(totalSegundos / 3600);
-        var minutos = Math.floor((totalSegundos % 3600) / 60);
-        var segundos = totalSegundos % 60;
-
-        return (
-            (horas < 10 ? "0" + horas : horas) +
-            ":" +
-            (minutos < 10 ? "0" + minutos : minutos) +
-            ":" +
-            (segundos < 10 ? "0" + segundos : segundos)
-        );
-    }
-
-
-</script>

@@ -14,7 +14,7 @@ class StartTest extends Model
         'user_id',
         'test_id',
         'time_start_test',
-        'time_remaining_test',
+        'time_end_test',
     ];
 
 }

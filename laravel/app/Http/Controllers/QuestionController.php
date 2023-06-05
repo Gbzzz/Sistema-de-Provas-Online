@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Answer;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Cache;
 
 class QuestionController extends Controller
 {
@@ -45,9 +45,16 @@ class QuestionController extends Controller
 
     public function list()
     {
-        $questions = Question::get();
+        $questions = Cache::get('questions');
+
+        if ($questions === null) {
+            $questions = Question::get();
+            Cache::put('questions', $questions);
+        }
+
         return view('pages.index-questions', compact('questions'));
     }
+
 
     public function edit($id)
     {
@@ -68,6 +75,7 @@ class QuestionController extends Controller
 
     public function updateQuestionMark(Request $request, $id)
     {
+        Cache::forget('questions');
 
         $question = Question::findOrFail($id);
 
@@ -95,14 +103,6 @@ class QuestionController extends Controller
         $questions = Question::find($id);
         $questions->delete();
         return redirect()->back()->with('success-message','Questão deletada com sucesso.');
-    }
-
-    public function view($id)
-    {
-        $question = Question::find($id);
-        // passando as respostas da questão em um array
-        $question['answers'] = $question->answers;
-        return view('pages.view-questions', compact('question'));
     }
 
 }

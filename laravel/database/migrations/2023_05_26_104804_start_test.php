@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('test_id');
             // $table->time('time_test');
             $table->time('time_start_test')->nullable();
-            $table->time('time_remaining_test')->nullable();
+            $table->time('time_end_test')->nullable();
         });
     }
 
