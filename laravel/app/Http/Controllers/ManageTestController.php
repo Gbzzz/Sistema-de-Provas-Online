@@ -10,9 +10,7 @@ use Carbon\Carbon;
 
 class ManageTestController extends Controller
 {
-    public function index(Request $request, $id)
-    {
-
+    public function add($id){
         $user_id = Auth::id();
         $test_id = Test::find($id);
         $data = Carbon::now();
@@ -20,17 +18,43 @@ class ManageTestController extends Controller
 
         $data_final = $data->copy()->addHours($time_test->hour)->addMinutes($time_test->minute);
 
-        $time_start = StartTest::create([
+        $horario_termino = $data_final->format('H:i');
+
+        StartTest::create([
             'user_id' => $user_id,
             'test_id' => $test_id->id,
-            'time_start_test' => $data->format('H:s'),
-            'time_end_test' => $data_final->format('H:s'),
+            'time_start_test' => Carbon::now()->format('H:i'),
+            'time_end_test' => $horario_termino,
         ]);
 
-        $test = Test::with('questions')->find($id);
-        $start_tests = StartTest::where('user_id', $user_id)->first();
+        return redirect()->route('test_start', ['id' => $id]);
+    }
 
-        return view('pages.start-test', compact('test', 'start_tests', 'data_final'));
+    public function start($id)
+    {
+        $test_id = Test::find($id);
+        $data = Carbon::now();
+
+        $time_test = Carbon::parse($test_id->time_test);
+
+        $data_final = $data->copy()->addHours($time_test->hour)->addMinutes($time_test->minute);
+
+        $horario_termino = $data_final->format('H:i');
+
+        $time_start = StartTest::where('test_id',$id)->first();
+        $start_tests = ((Carbon::parse($time_start->time_end_test)->floatDiffInHours(date('H:i'))*60)*60);
+
+        $test = Test::with('questions')->find($id);
+        $data->format('H:i');
+
+        return view('pages.start-test', compact('test', 'start_tests', 'data_final', 'data'));
+    }
+
+    public function end($id){
+        $test = StartTest::find($id);
+        $test->test_finish = 1;
+        $test->save();
+        return view ('pages.test-student');
     }
 
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             // $table->time('time_test');
             $table->time('time_start_test')->nullable();
             $table->time('time_end_test')->nullable();
+            $table->boolean('test_finish')->default(0);
         });
     }
 

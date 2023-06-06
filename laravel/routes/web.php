@@ -58,15 +58,11 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middle
 
 Route::get('/index-questions', [HomeController::class, 'index_questions'])->name('index-questions')->middleware('auth');
 Route::get('/index-tests', [HomeController::class, 'index_tests'])->name('index-tests')->middleware('auth');
-Route::get('/tests/start/{id}/', [ManageTestController::class, 'index'])->middleware('discente');
+Route::get('/tests/start/{id}/', [ManageTestController::class, 'start'])->name('test_start')->middleware('discente');
+Route::post('/tests/student/{id}/store/', [ManageTestController::class, 'add'])->name('add_student')->middleware('discente');
+Route::post('/tests/student/end/{id}/', [ManageTestController::class, 'end'])->name('end_test')->middleware('discente');
 
 Route::get('/profile', [UserProfileController::class, 'show'])->name('profile')->middleware('auth');
 Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 Route::get('/{page}', [PageController::class, 'index'])->name('page')->middleware('auth');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
-
-Route::get('/contador',[TestController::class, 'indexStart']);
-Route::post('/contador', [TestController::class, 'start']);
-
-// Route::get('/register', [RegisterController::class, 'create'])->name('register');
-// Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');

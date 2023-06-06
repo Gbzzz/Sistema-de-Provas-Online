@@ -40,7 +40,8 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <form action="/tests/start/{{$test->id}}" method="GET">
+                                            <form action="{{ route('add_student', ['id' => $test->id]) }}" method="POST">
+                                                @csrf
                                                     <button type="submit" class="btn btn-primary btn-sm mt-4">Começar</button>
                                             </form>
                                         </td>
