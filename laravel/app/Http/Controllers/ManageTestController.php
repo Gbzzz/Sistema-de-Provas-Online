@@ -41,14 +41,18 @@ class ManageTestController extends Controller
 
         $horario_termino = $data_final->format('H:i');
 
-        $time_start = StartTest::where('test_id',$id)->first();
-        $start_tests = ((Carbon::parse($time_start->time_end_test)->floatDiffInHours(date('H:i'))*60)*60);
+        $time_start = StartTest::where('test_id', $id)->first();
+        $start_time = Carbon::parse($time_start->time_end_test);
+        $current_time = Carbon::now();
+
+        $start_tests = $start_time->diffInSeconds($current_time);
 
         $test = Test::with('questions')->find($id);
         $data->format('H:i');
 
         return view('pages.start-test', compact('test', 'start_tests', 'data_final', 'data'));
     }
+
 
     public function end($id){
         $test = StartTest::find($id);

@@ -165,7 +165,8 @@
             display.textContent = hours + ":" + minutes + ":" + seconds;
 
             if (--timer < 0) {
-                timer = duration;
+                clearInterval(interval);
+                window.location.href = "/tests/student/end/<?= $test->id?>"
             }
         }, 1000);
     }
