@@ -2,6 +2,18 @@
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Usuários Cadastrados'])
+    <script>
+        @if(Session::has('message'))
+            var message = "{{ Session::get('message') }}";
+            Swal.fire({
+                icon: 'success',
+                title: message,
+                customClass: {
+                    confirmButton: 'btn btn-primary btn-sm mt-4'
+                }
+            });
+        @endif
+    </script>
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
@@ -10,11 +22,11 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
-                   
+
                     <div id="alert">
                         @include('components.alert')
                     </div>
-                    
+
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>

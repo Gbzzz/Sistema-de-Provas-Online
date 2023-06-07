@@ -17,10 +17,21 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'username' => 'admin',
-            'firstname' => 'Admin',
+            'firstname' => 'admin',
             'lastname' => 'Admin',
-            'email' => 'admin@argon.com',
-            'password' => bcrypt('secret')
+            'email' => 'admin@admin.com',
+            'password' => '$2y$10$ytyb9rAV0UWUGVtyOT3otOb9uKKjd8njzllTSTUcb410IiYSU5kMC',
+            'FirstAccess' => '0',
+            'admin' => '1',
+            'docente' => '1',
+            'discente' => '1',
+        ]);
+
+        DB::table('questions')->insert([
+            'tag' => 'Teste Aberta',
+            'enunciado' => 'Qual a melhor linguagem de programação?',
+            'Answer' => 'PHP',
+            'tipoQuestao' => '1',
         ]);
     }
 }

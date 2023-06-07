@@ -146,35 +146,41 @@
         </div>
     </form>
 
+    <form id="timerForm" method="POST" action="/tests/student/end/<?= $test->id?>">
+        @csrf
+    </form>
 
 @endsection
 
 @push('js')
     <script>
         function startTimer(duration, display) {
-        var timer = duration, hours, minutes, seconds;
-        setInterval(function () {
-            hours = parseInt(timer / 3600, 10);
-            minutes = parseInt((timer % 3600) / 60, 10);
-            seconds = parseInt(timer % 60, 10);
+            var timer = duration, hours, minutes, seconds;
+            var interval = setInterval(function () {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
 
-            hours = hours < 10 ? "0" + hours : hours;
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            display.textContent = hours + ":" + minutes + ":" + seconds;
+                display.textContent = hours + ":" + minutes + ":" + seconds;
 
-            if (--timer < 0) {
-                clearInterval(interval);
-                window.location.href = "/tests/student/end/<?= $test->id?>"
-            }
-        }, 1000);
-    }
+                if (timer == 0) {
+                    clearInterval(interval);
+                    display.textContent = "00:00:00";
+                    document.getElementById("timerForm").submit();
+                } else {
+                    timer--;
+                }
+            }, 1000);
+        }
 
-    window.onload = function () {
-        var duration = parseInt("<?=$start_tests;?>");
-        display = document.querySelector('#timer');
-        startTimer(duration, display);
-    };
+        window.onload = function () {
+            var duration = parseInt("<?=$cont_test;?>");
+            display = document.querySelector('#timer');
+            startTimer(duration, display);
+        };
     </script>
 @endpush

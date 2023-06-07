@@ -5,60 +5,74 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\StartTest;
+use App\Models\EndTest;
 use App\Models\Test;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+
 
 class ManageTestController extends Controller
 {
-    public function add($id){
-        $user_id = Auth::id();
-        $test_id = Test::find($id);
+    public function add($id)
+    {
+        $test_finish = EndTest::where('test_id', $id)->first();
+
+        if($test_finish){
+            if ($test_finish->test_finish == 1 and $test_finish->user_id == Auth::id()) {
+                $message = "Essa prova já foi finalizada, aguarde seu professor corrigi-la.";
+                Session::flash('message', $message);
+                return redirect('/tests');
+            }
+        }
+
+        $user = Auth::user();
+        $test = Test::find($id);
+
         $data = Carbon::now();
-        $time_test = Carbon::parse($test_id->time_test);
+        $time_test = Carbon::parse($test->time_test);
 
         $data_final = $data->copy()->addHours($time_test->hour)->addMinutes($time_test->minute);
-
         $horario_termino = $data_final->format('H:i');
 
-        StartTest::create([
-            'user_id' => $user_id,
-            'test_id' => $test_id->id,
-            'time_start_test' => Carbon::now()->format('H:i'),
-            'time_end_test' => $horario_termino,
-        ]);
+        $startTest = new StartTest();
+        $startTest->user()->associate($user);
+        $startTest->test()->associate($test);
+        $startTest->time_start_test = Carbon::now()->format('H:i');
+        $startTest->time_end_test = $horario_termino;
+        $startTest->save();
+
+        Log::info($user->name . ' Prova ' . $test->id . ' foi iniciada pelo usuário: ' . $user->username);
 
         return redirect()->route('test_start', ['id' => $id]);
     }
+
 
     public function start($id)
     {
         $test_id = Test::find($id);
         $data = Carbon::now();
-
         $time_test = Carbon::parse($test_id->time_test);
-
         $data_final = $data->copy()->addHours($time_test->hour)->addMinutes($time_test->minute);
-
-        $horario_termino = $data_final->format('H:i');
-
-        $time_start = StartTest::where('test_id', $id)->first();
-        $start_time = Carbon::parse($time_start->time_end_test);
-        $current_time = Carbon::now();
-
-        $start_tests = $start_time->diffInSeconds($current_time);
-
+        $time_start = StartTest::where('test_id', $id)->where('user_id', Auth::id())->first();
+        $end_time = Carbon::parse($time_start->time_end_test);
+        $cont_test = $end_time->diffInSeconds($data);
         $test = Test::with('questions')->find($id);
-        $data->format('H:i');
 
-        return view('pages.start-test', compact('test', 'start_tests', 'data_final', 'data'));
+        return view('pages.start-test', compact('test', 'cont_test'));
     }
 
 
     public function end($id){
-        $test = StartTest::find($id);
-        $test->test_finish = 1;
-        $test->save();
-        return view ('pages.test-student');
+
+        $user = Auth::user();
+        $test = Test::find($id);
+        $endTest =  new EndTest();
+        $endTest->test_finish = 1;
+        $endTest->user()->associate($user);
+        $endTest->test()->associate($test);
+        $endTest->save();
+        return redirect('/tests');
     }
 
 }

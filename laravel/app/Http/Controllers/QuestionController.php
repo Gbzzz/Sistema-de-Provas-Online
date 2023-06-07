@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Answer;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class QuestionController extends Controller
 {
@@ -18,9 +19,11 @@ class QuestionController extends Controller
         'tipoQuestao' => 'required|integer',
        ]);
 
-       Question::create($data);
+        Question::create($data);
 
-       return redirect()->back()->with('success-message','Questão cadastrada com sucesso.');
+        $message = "Questão Cadastrada";
+        Session::flash('message', $message);
+        return redirect()->back();
     }
 
     public function storeMark(Request $request){
@@ -40,7 +43,9 @@ class QuestionController extends Controller
         // associando as respostas a pergunta
         $question->answers()->createMany($answers);
 
-        return redirect()->back()->with('success-message','Questão cadastrada com sucesso.');
+        $message = "Questão criada com Sucesso";
+        Session::flash('message', $message);
+        return redirect()->back();
     }
 
     public function list()
@@ -60,7 +65,7 @@ class QuestionController extends Controller
     {
         $question = Question::find($id);
         $question->answers;
-        return view('pages.edit-questions', compact('question'))->with('success-message','Questão editada com sucesso.');
+        return view('pages.edit-questions', compact('question'));
     }
 
     public function updateQuestionOpen(Request $request, $id)
@@ -70,7 +75,9 @@ class QuestionController extends Controller
         $questions->enunciado = $request->input('enunciado');
         $questions->answer = $request->input('answer');
         $questions->save();
-        return redirect('/index-questions')->with('success-message','Questão atualizada com sucesso.');
+        $message = "A Questão foi editada";
+        Session::flash('message', $message);
+        return redirect('/index-questions');
     }
 
     public function updateQuestionMark(Request $request, $id)
@@ -95,14 +102,19 @@ class QuestionController extends Controller
             $answer->save();
         }
 
-        return redirect('/questions/list')->with('success-message','Questão atualizada com sucesso.');
+        $message = "A Questão foi editada";
+        Session::flash('message', $message);
+
+        return redirect('/questions/list');
     }
 
     public function delete($id)
     {
         $questions = Question::find($id);
         $questions->delete();
-        return redirect()->back()->with('success-message','Questão deletada com sucesso.');
+        $message = "A Questão $questions->id foi deletada";
+        Session::flash('message', $message);
+        return redirect()->back();
     }
 
 }

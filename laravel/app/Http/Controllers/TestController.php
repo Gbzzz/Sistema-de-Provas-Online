@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Test;
+use Illuminate\Support\Facades\Session;
 
 class TestController extends Controller
 {
@@ -28,12 +29,17 @@ class TestController extends Controller
             $test->questions()->attach($selectedId);
         }
 
-        return redirect('/index-tests')->with('success-message', 'Prova criada com sucesso!');
+        $message = "Prova Cadastrada";
+        Session::flash('message', $message);
+
+        return redirect('/index-tests');
     }
 
     public function delete($id){
         $test = Test::find($id);
         $test->delete();
+        $message = "Prova $test->id foi deletada";
+        Session::flash('message', $message);
         return redirect('/index-tests');
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use App\Models\User;
 use App\Notifications\ForgotPassword;
+use Illuminate\Support\Facades\Session;
+
 
 class ResetPassword extends Controller
 {
@@ -29,7 +31,9 @@ class ResetPassword extends Controller
 
         if ($user) {
             $this->notify(new ForgotPassword($user->id));
-            return back()->with('succes', 'Um e-mail foi enviado para o seu endereço de e-mail');
+            $message = "Um link foi enviado para o seu endereço de e-mail";
+            Session::flash('message', $message);
+            return back();
         }
     }
 }

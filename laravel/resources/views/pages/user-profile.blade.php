@@ -50,9 +50,6 @@
             </div>
         </div>
     </div>
-    <div id="alert">
-        @include('components.alert')
-    </div>
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-md-8">

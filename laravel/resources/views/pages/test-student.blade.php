@@ -2,6 +2,19 @@
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Provas'])
+    <script>
+        @if(Session::has('message'))
+            var message = "{{ Session::get('message') }}";
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: message,
+                customClass: {
+                    confirmButton: 'btn btn-primary btn-sm mt-4'
+                }
+            });
+        @endif
+    </script>
     <div class="container-fluid py-4">
         <div class="row justify-content-center">
             <div class="col-9">

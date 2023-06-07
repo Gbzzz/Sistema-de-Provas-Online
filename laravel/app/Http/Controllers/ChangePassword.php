@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ChangePassword extends Controller
 {
@@ -24,7 +25,7 @@ class ChangePassword extends Controller
         if ($request->session()->has('email')) {
             $email = $request->session()->get('email');
             $request->session()->forget('email');
-            
+
             return view('auth.change-password', compact('email'));
         }
 
@@ -45,6 +46,9 @@ class ChangePassword extends Controller
                         'password' => $attributes['password'],
                         'FirstAccess' => false
                     ]);
+
+                    $message = "Senha alterada";
+                    Session::flash('message', $message);
                     return redirect('login');
                 } else {
                     return redirect('/dashboard');

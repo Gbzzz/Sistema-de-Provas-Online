@@ -60,7 +60,7 @@ Route::get('/index-questions', [HomeController::class, 'index_questions'])->name
 Route::get('/index-tests', [HomeController::class, 'index_tests'])->name('index-tests')->middleware('auth');
 Route::get('/tests/start/{id}/', [ManageTestController::class, 'start'])->name('test_start')->middleware('discente');
 Route::post('/tests/student/{id}/store/', [ManageTestController::class, 'add'])->name('add_student')->middleware('discente');
-Route::post('/tests/student/end/{id}/', [ManageTestController::class, 'end'])->name('end_test')->middleware('discente');
+Route::post('/tests/student/end/{id}/', [ManageTestController::class, 'end'])->name('end_test');
 
 Route::get('/profile', [UserProfileController::class, 'show'])->name('profile')->middleware('auth');
 Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update')->middleware('auth');

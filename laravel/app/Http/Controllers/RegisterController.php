@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Session;
 
 // use App\Http\Requests\RegisterRequest;
 
@@ -50,7 +51,8 @@ class RegisterController extends Controller
             event(new Registered($userDiscente));
         }
 
-
-        return redirect('/users')->with('success', 'Usuário cadastrado com Sucesso');
+        $message = "Usuário Cadastrado";
+        Session::flash('message', $message);
+        return redirect('/users');
     }
 }
