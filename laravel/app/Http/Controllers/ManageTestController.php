@@ -16,7 +16,7 @@ class ManageTestController extends Controller
 {
     public function add($id)
     {
-        $test_finish = EndTest::where('test_id', $id)->first();
+        $test_finish = EndTest::where('test_id', $id)->where('user_id', Auth::id())->first();
 
         if($test_finish){
             if ($test_finish->test_finish == 1 and $test_finish->user_id == Auth::id()) {
