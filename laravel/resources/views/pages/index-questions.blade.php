@@ -9,7 +9,16 @@
                 icon: 'success',
                 title: message,
                 customClass: {
-                    confirmButton: 'btn btn-primary btn-sm mt-4'
+                    confirmButton: 'btn btn-primary btn-sm mt-4',
+                    cancelButton: 'btn btn-primary btn-sm mt-4',
+                },
+                didRender: () => {
+                    const confirmButton = document.querySelector('.swal2-confirm');
+                    const cancelButton = document.querySelector('.swal2-cancel');
+                    confirmButton.style.backgroundColor = '#FB6340';
+                    cancelButton.style.backgroundColor = '#FB6340';
+                    confirmButton.style.boxShadow = 'none';
+                    cancelButton.style.boxShadow = 'none';
                 }
             });
         @endif

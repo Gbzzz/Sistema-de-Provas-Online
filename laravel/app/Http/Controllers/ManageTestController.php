@@ -72,6 +72,8 @@ class ManageTestController extends Controller
         $endTest->user()->associate($user);
         $endTest->test()->associate($test);
         $endTest->save();
+        $message = "O tempo da prova acabou :(";
+        Session::flash('message', $message);
         return redirect('/tests');
     }
 

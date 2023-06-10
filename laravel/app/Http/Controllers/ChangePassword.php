@@ -46,9 +46,7 @@ class ChangePassword extends Controller
                         'password' => $attributes['password'],
                         'FirstAccess' => false
                     ]);
-
-                    $message = "Senha alterada";
-                    Session::flash('message', $message);
+                    
                     return redirect('login');
                 } else {
                     return redirect('/dashboard');

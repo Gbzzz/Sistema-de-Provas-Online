@@ -53,6 +53,7 @@ class QuestionController extends Controller
         $questions = Cache::get('questions');
 
         if ($questions === null) {
+            sleep(5);
             $questions = Question::get();
             Cache::put('questions', $questions);
         }
