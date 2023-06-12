@@ -188,7 +188,7 @@
                                 @foreach($tests as $test)
                                 <tr>
                                     <td>
-                                        <div class="d-flex py-1 align-items-center mt-2">
+                                        <div class="d-flex py-1 align-items-center ">
                                             <div class="icon icon-shape icon-sm  bg-gradient-dark shadow text-center">
                                                 <i class="ni ni-tag text-white opacity-10"></i>
                                             </div>

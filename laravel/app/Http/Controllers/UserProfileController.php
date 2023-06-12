@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;
 
 class UserProfileController extends Controller
 {
@@ -37,6 +38,9 @@ class UserProfileController extends Controller
             'postal' => $request->get('postal'),
             'about' => $request->get('about')
         ]);
+
+        $message = "Perfil atualizado!";
+        Session::flash('message', $message);
         return back()->with('succes', 'Perfil atualizado com sucesso');
     }
 }

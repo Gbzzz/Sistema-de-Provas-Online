@@ -43,14 +43,14 @@
                         <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                     </a>
                 </li>
-                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell cursor-pointer"></i>
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
-                        aria-labelledby="dropdownMenuButton">
-                        <li class="mb-2">
+                        aria-labelledby="dropdownMenuButton"> --}}
+                        {{-- <li class="mb-2">
                             <a class="dropdown-item border-radius-md" href="javascript:;">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
@@ -86,8 +86,8 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a class="dropdown-item border-radius-md" href="javascript:;">
                                 <div class="d-flex py-1">
                                     <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
@@ -112,7 +112,7 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <div class="d-flex flex-column justify-content-center">
+                                    {{-- <div class="d-flex flex-column justify-content-center">
                                         <h6 class="text-sm font-weight-normal mb-1">
                                             Payment successfully completed
                                         </h6>
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             </ul>

@@ -37,7 +37,7 @@
                                         Função
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Data de Criação
+                                        Data e Hora de Criação
                                     </th>
                                 </tr>
                             </thead>
@@ -70,7 +70,7 @@
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <p class="text-sm font-weight-bold mb-0">
-                                            {{ $user->created_at }}
+                                            {{ date('d/m/Y | H:i:s', strtotime($user->created_at)) }}
                                         </p>
                                     </td>
                                 </tr>

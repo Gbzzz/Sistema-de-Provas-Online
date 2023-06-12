@@ -1,6 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
+    <script>
+        @if(Session::has('message'))
+            var message = "{{ Session::get('message') }}";
+            Swal.fire({
+                icon: 'success',
+                title: message,
+                customClass: {
+                    confirmButton: 'btn btn-primary btn-sm mt-4',
+                    cancelButton: 'btn btn-primary btn-sm mt-4',
+                },
+                didRender: () => {
+                    const confirmButton = document.querySelector('.swal2-confirm');
+                    const cancelButton = document.querySelector('.swal2-cancel');
+                    confirmButton.style.backgroundColor = '#FB6340';
+                    cancelButton.style.backgroundColor = '#FB6340';
+                    confirmButton.style.boxShadow = 'none';
+                    cancelButton.style.boxShadow = 'none';
+                }
+            });
+        @endif
+    </script>
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
@@ -43,10 +64,8 @@
                                 style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
                                         background-size: cover;">
                                 <span class="mask bg-gradient-primary opacity-6"></span>
-                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new
-                                    currency"</h4>
-                                <p class="text-white position-relative">The more effortless the writing looks, the more
-                                    effort the writer actually put into the process.</p>
+                                <h4 class="mt-5 text-white font-weight-bolder position-relative">Sistema de Provas Online</h4>
+                                <p class="text-white position-relative">"Transformando avaliações em experiências digitais de sucesso!"</p>
                             </div>
                         </div>
                     </div>

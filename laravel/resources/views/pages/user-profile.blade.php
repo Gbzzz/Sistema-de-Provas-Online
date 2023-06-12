@@ -2,6 +2,28 @@
 
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Perfil'])
+    <script>
+        @if(Session::has('message'))
+            var message = "{{ Session::get('message') }}";
+            Swal.fire({
+                icon: 'success',
+                title: message,
+                customClass: {
+                    confirmButton: 'btn btn-primary btn-sm mt-4',
+                    cancelButton: 'btn btn-primary btn-sm mt-4',
+                },
+                didRender: () => {
+                    const confirmButton = document.querySelector('.swal2-confirm');
+                    const cancelButton = document.querySelector('.swal2-cancel');
+                    confirmButton.style.backgroundColor = '#FB6340';
+                    cancelButton.style.backgroundColor = '#FB6340';
+                    confirmButton.style.boxShadow = 'none';
+                    cancelButton.style.boxShadow = 'none';
+                }
+            });
+        @endif
+    </script>
+
     <div class="card shadow-lg mx-4 card-profile-bottom">
         <div class="card-body p-3">
             <div class="row gx-4">
